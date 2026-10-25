@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100d25">
+  <title>Güzelim İçin 💗</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --pink: #ff8fc8;
+      --purple: #b7a1ff;
+      --white: #fff8ff;
+      --muted: #d5cce8;
+      --panel: rgba(255, 255, 255, 0.075);
+      --border: rgba(255, 255, 255, 0.13);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--white);
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(ellipse at top, #30204d 0%, transparent 55%),
+        linear-gradient(160deg, #100d25, #19122e 55%, #090817);
+      line-height: 1.7;
+    }
+
+    #stars {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page {
+      width: min(780px, 100%);
+      margin: auto;
+      padding: 28px 18px 55px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 50px 10px 35px;
+    }
+
+    .moon {
+      font-size: 42px;
+      display: inline-block;
+      margin-bottom: 12px;
+      animation: float 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 15px #ffe0a8);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 7vw, 3.4rem);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, #fff, #ffb9df, #c8b7ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 540px;
+      margin: auto;
+      font-size: 1.04rem;
+    }
+
+    .heart-line {
+      color: var(--pink);
+      letter-spacing: 8px;
+      margin-top: 20px;
+    }
+
+    .section {
+      margin: 18px 0;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 23px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.14);
+    }
+
+    .section-number {
+      color: var(--pink);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .section h2 {
+      font-size: clamp(1.25rem, 4vw, 1.7rem);
+      margin-bottom: 9px;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin-bottom: 17px;
+    }
+
+    .main-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 20px;
+      color: #30142b;
+      font-weight: 750;
+      cursor: pointer;
+      background: linear-gradient(110deg, #ffadd9, #d0baff);
+      box-shadow: 0 5px 22px rgba(255, 143, 200, 0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .main-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(255, 143, 200, 0.28);
+    }
+
+    .main-button:active {
+      transform: scale(0.98);
+    }
+
+    .main-button:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 4px;
+    }
+
+    .message-box {
+      display: none;
+      margin-top: 18px;
+      padding: 17px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 173, 217, 0.2);
+      background: rgba(255, 143, 200, 0.08);
+      color: #ffe4f3;
+      white-space: pre-line;
+      animation: appear 0.35s ease;
+    }
+
+    .message-box.show {
+      display: block;
+    }
+
+    .note-card {
+      min-height: 150px;
+      padding: 23px 16px;
+      margin: 18px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 173, 217, 0.18);
+      background:
+        radial-gradient(circle at top, rgba(255, 143, 200, 0.1), transparent 75%),
+        rgba(13, 10, 30, 0.35);
+    }
+
+    .note-emoji {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .note-text {
+      font-size: clamp(1.08rem, 4vw, 1.32rem);
+      font-weight: 650;
+      line-height: 1.8;
+      color: #fff0f8;
+      white-space: pre-line;
+    }
+
+    .note-count {
+      color: #bfb2d8;
+      font-size: 0.8rem;
+      margin-top: 15px;
+    }
+
+    .button-center {
+      display: flex;
+      justify-content: center;
+    }
+
+    .song-card {
+      min-height: 205px;
+    }
+
+    .song-label {
+      color: var(--purple);
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 750;
+      margin-bottom: 12px;
+    }
+
+    .song-lyrics {
+      font-size: clamp(1.02rem, 3.7vw, 1.23rem);
+      font-weight: 600;
+      line-height: 1.9;
+      color: #fff0f8;
+      white-space: pre-line;
+    }
+
+    .song-heart {
+      font-size: 1.5rem;
+      margin-top: 15px;
+    }
+
+    .small-hint {
+      color: #bdb0d6;
+      font-size: 0.82rem;
+      margin-top: 12px;
+    }
+
+    .footer {
+      padding: 35px 10px 15px;
+      text-align: center;
+      color: #cfc2e6;
+      font-size: 0.9rem;
+    }
+
+    .footer .big-heart {
+      font-size: 2rem;
+      margin-bottom: 5px;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    .floating-hearts {
+      position: fixed;
+      bottom: -30px;
+      pointer-events: none;
+      z-index: 2;
+      animation: rise 4s linear forwards;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-9px); }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.13); }
+    }
+
+    @keyframes rise {
+      from { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 0.8; }
+      to { transform: translateY(-110vh) rotate(30deg); opacity: 0; }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding: 15px 13px 35px;
+      }
+
+      .hero {
+        padding: 38px 5px 25px;
+      }
+
+      .section {
+        padding: 20px 17px;
+        border-radius: 20px;
+      }
+
+      .main-button {
+        width: 100%;
+      }
+
+      .note-card {
+        min-height: 160px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <main class="page">
+    <header class="hero">
+      <div class="moon">🌙</div>
+      <h1>SENİN İÇİN 💗</h1>
+      <p>
+        Bu küçücük evrenin içinde sana ayrılmış bir köşe var.
+        Ne zaman istersen gelip kendini sevildiğini hatırlayabilirsin, sevgilim.
+      </p>
+      <div class="heart-line">♡ ✦ ♡ ✦ ♡</div>
+    </header>
+
+    <!-- 01: Sarılma -->
+    <section class="section">
+      <div class="section-number">01 · SANA SARILMAK</div>
+      <h2>Sana kocaman bir sarılma 🫂</h2>
+      <p class="description">
+        Yanında olamasam bile bu sarılma sana ulaşsın istedim.
+      </p>
+
+      <button class="main-button"
+        onclick="toggleMessage('hugMessage', this, 'Bana sarıl 💗', 'Sarılmayı göster 🫂')">
+        Bana sarıl 💗
+      </button>
+
+      <div class="message-box" id="hugMessage">
+        Gel buraya güzelim. 🫂
+
+        Başını omzuma koy, bütün yorgunluğunu biraz olsun bırak.
+        Şu an dünyadaki her şeyi durdurabilsem, seni kollarımın arasına alırdım.
+
+        Biraz daha sarılalım mı, yavrum? 💗
+      </div>
+    </section>
+
+    <!-- 02: Kalbimden sana -->
+    <section class="section">
+      <div class="section-number">02 · KALBİMDEN SANA</div>
+      <h2>Kalbimden sana küçük cümleler 💌</h2>
+      <p class="description">
+        Bunlar sana söylemek istediğim şeyler, sevgilim.
+        Her tıkladığında kalbimden başka bir cümle açılacak.
+      </p>
+
+      <div class="note-card" aria-live="polite">
+        <div class="note-emoji" id="noteEmoji">💗</div>
+        <p class="note-text" id="noteText"></p>
+        <div class="note-count" id="noteCount">1 / 13</div>
+      </div>
+
+      <div class="button-center">
+        <button class="main-button" onclick="nextNote()">
+          Bir cümle daha oku 💗
+        </button>
+      </div>
+    </section>
+
+    <!-- 03: Şarkılar -->
+    <section class="section">
+      <div class="section-number">03 · SANA YAZILMIŞ MİNİ ŞARKILAR</div>
+      <h2>Sözlerin arasında sen varsın 🎶</h2>
+      <p class="description">
+        Her sözde seni hatırlatan başka bir şey var.
+        Bir sonrakini görmek için butona dokun, sevgilim.
+      </p>
+
+      <div class="note-card song-card" aria-live="polite">
+        <div class="song-label" id="songLabel">Sana özel · 1. söz</div>
+        <p class="song-lyrics" id="songLyrics"></p>
+        <div class="song-heart" id="songHeart">🎶 💗</div>
+        <div class="note-count" id="songCount">1 / 11</div>
+      </div>
+
+      <div class="button-center">
+        <button class="main-button" onclick="nextSong()">
+          Bir söz daha aç 🎶
+        </button>
+      </div>
+
+      <p class="small-hint">
+        Her tıklamada başka bir söz, başka bir küçük his… 💕
+      </p>
+    </section>
+
+    <!-- 04: Gülümseme molası -->
+    <section class="section">
+      <div class="section-number">04 · KÜÇÜK BİR GÜLÜMSEME</div>
+      <h2>Gülümseme molası 😊</h2>
+      <p class="description">
+        Şu an dünyanın bir yerinde senin gülüşünü çok seven biri var onun için gülümsemeye devam et.
+      </p>
+
+      <button class="main-button" onclick="newSmile()">
+        Gülümsememi aç ✨
+      </button>
+
+      <div class="message-box" id="smileMessage" aria-live="polite"></div>
+    </section>
+
+    <!-- 05: Son mektup -->
+    <section class="section">
+      <div class="section-number">05 · SON BİR NOT</div>
+      <h2>Sana söylemek istediğim bir şey var 💌</h2>
+      <p class="description">
+        Bu sayfanın sonunda da aklımda yine sen varsın.
+      </p>
+
+      <button class="main-button"
+        onclick="toggleMessage('letterMessage', this, 'Mektubunu aç 💌', 'Mektubu tekrar oku 💌')">
+        Mektubunu aç 💌
+      </button>
+
+      <div class="message-box" id="letterMessage">Sevgilim, 💗
+
+Burayı senin için, kendini kötü hissettiğinde ya da içinde birikenleri anlatamadığında açıp okuyabilmen için hazırladım. Bazen insanın içinde anlatmak istediği çok şey olur ama kelimeler yetmez. İşte o zamanlarda bu küçük köşenin sana yalnız olmadığını hatırlatmasını istiyorum.
+
+Birlikte dinlediğimiz ya da dinlerken bana seni hatırlatan şarkılar var ya… O şarkılarda sana bir şeyler hissettiren, kalbine dokunan her söz benim için çok özel. Çünkü bazen bir şarkı, sana söylemek istediklerimi kelimelerden daha güzel anlatıyor.
+
+Şunu hiç unutma, güzelim: Sen benim için çok özelsin. Gülüşün, sesin, anlattıkların, hatta bazen sessizliğin bile benim için çok kıymetli. Her zaman mutlu olmak, güçlü görünmek ya da her şeyi tek başına halletmek zorunda değilsin.
+
+Yorulduğunda dinlenebilirsin, üzüldüğünde anlatabilirsin, kelimeleri bulamadığında da sadece yanında olmama izin verebilirsin. Seni anlamak, dinlemek ve güzel günlerinde de zor zamanlarında da yanında olmak istiyorum.
+
+Seni çok seviyorum, sevgilim. 💗
+Ne zaman kendini yalnız ya da anlaşılmamış hissedersen bu notu açıp oku. Hayatımda ne kadar özel bir yerin olduğunu ve seni ne kadar çok sevdiğimi hatırla.
+
+İyi ki varsın, güzelim.
+Ben her zaman yanındayım. 🌙💗</div>
+    </section>
+
+    <footer class="footer">
+      <div class="big-heart">💗</div>
+      <p>Gökyüzünde kaç yıldız varsa, sana o kadar güzel dileğim var.</p>
+      <p>Senin için, güzelim. ✨</p>
+    </footer>
+  </main>
+
+  <script>
+    // Yıldızlı gökyüzü
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+
+    let stars = [];
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+    let starAnimationStarted = false;
+
+    function resizeStars() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvasWidth = window.innerWidth;
+      canvasHeight = window.innerHeight;
+
+      canvas.width = canvasWidth * dpr;
+      canvas.height = canvasHeight * dpr;
+      canvas.style.width = canvasWidth + "px";
+      canvas.style.height = canvasHeight + "px";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const count = Math.min(
+        Math.floor((canvasWidth * canvasHeight) / 4500),
+        240
+      );
+
+      stars = Array.from({ length: count }, () => ({
+        x: Math.random() * canvasWidth,
+        y: Math.random() * canvasHeight,
+        radius: Math.random() * 1.5 + 0.3,
+        alpha: Math.random() * 0.65 + 0.2,
+        speed: Math.random() * 0.015 + 0.003
+      }));
+
+      if (!starAnimationStarted) {
+        starAnimationStarted = true;
+        drawStars();
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      for (const star of stars) {
+        star.alpha += star.speed;
+
+        if (star.alpha > 0.9 || star.alpha < 0.2) {
+          star.speed *= -1;
+        }
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 235, 255, ${star.alpha})`;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(drawStars);
+    }
+
+    window.addEventListener("resize", resizeStars);
+    resizeStars();
+
+    // 02: Kalpten gelen 13 not
+    const notes = [
+      "Yıldızlar kadar öpücük, bir tanem. 💋✨",
+
+      "Herkese yetişmeye çalışırken kendini unutursan, gel bana. Biraz da ben seni düşüneyim.",
+
+      "Sen benim en güzel iyi ki'msin. 💗",
+
+      "Yükünü senin yerine taşıyamam belki ama yorulduğunda seni yalnız bırakmam.",
+
+      "Seni seviyorum. Deli gibi değil, gayet aklı başında olarak seviyorum.",
+
+      "Sevgilim, herkes senden güçlü olmanı bekleyebilir ama benim yanımda güçlü olmak zorunda değilsin. Yorulabilirsin, kırılabilirsin, susabilirsin. Ben seni en çok kendin olabildiğin hâlinle sevmek istiyorum.",
+
+      "Gülüşün var ya… İnsanın içindeki bütün bulutları dağıtıyor.",
+
+      "Sen tek başına değilsin, ben buradayım. 💞",
+
+      "Yalnız seni, yalnız senin gözlerini. 🌙",
+
+      "Bazen tek istediğim, senin yanında oturup hiçbir şey söylemeden durmak.",
+
+      "Her hâlin ayrı güzel ve ben her hâline aşığım.",
+
+      "Sen anlatırken seni dinlemeyi seviyorum. 💌",
+
+      "Senin varlığın bile dünyayı biraz daha güzel hissettiriyor."
+    ];
+
+    const noteEmojis = [
+      "💋", "🌷", "💗", "🫂", "💞",
+      "💌", "☀️", "🧸", "🌙", "✨",
+      "💕", "🌸", "💖"
+    ];
+
+    let noteIndex = 0;
+
+    function showNote() {
+      document.getElementById("noteText").textContent =
+        notes[noteIndex];
+
+      document.getElementById("noteEmoji").textContent =
+        noteEmojis[noteIndex % noteEmojis.length];
+
+      document.getElementById("noteCount").textContent =
+        `${noteIndex + 1} / ${notes.length}`;
+    }
+
+    function nextNote() {
+      noteIndex = (noteIndex + 1) % notes.length;
+      showNote();
+      animateCard(document.getElementById("noteText"));
+      makeHeart();
+    }
+
+    // 03: Sana özel şarkı sözleri
+    const songs = [
+      {
+        lyrics: "Senin gözünden\nYeşil mi bahçem?",
+        heart: "🌿 💗"
+      },
+      {
+        lyrics: "Gündüzümde gecemdesin\nÇalınmasın söylenmesin\nSen benim şarkılarımsın",
+        heart: "🎶 🌙"
+      },
+      {
+        lyrics: "Karışık sensiz ruh hâllerim",
+        heart: "💭 💗"
+      },
+      {
+        lyrics: "Kamaşıyor gözlerim, bebeğim\nBöyle gülmek olur mu, gözünü seveyim?\nCennet dudaklarınmış, öp de öleyim",
+        heart: "😊 💕"
+      },
+      {
+        lyrics: "Ansızın umutsuzluk yelken açıp uzaklaşınca ufuktan\nAnlıyorsun bak\nSonbaharda yapraklar sararırken\nSende yeşile bürünür aşk",
+        heart: "🍂 🌿"
+      },
+      {
+        lyrics: "Güneş kıskanır saçlarının her telini\nIşığı yansımış ellerin ısıttı beni\nGökler ağlayıp üşütmesinler sevgilimi\nBi' sana kıyamam",
+        heart: "☀️ 💗"
+      },
+      {
+        lyrics: "Seni içime çektim bir nefeste\nYüreğim tutuklu, göğsüm kafeste\nYanacağız ikimiz de ateşte\nBir kıvılcım yeter, hazırım bak",
+        heart: "🔥 💞"
+      },
+      {
+        lyrics: "Halbuki iste ömrümü\nİste gönlümü\nİste, yoluna sereyim",
+        heart: "💌 🌹"
+      },
+      {
+        lyrics: "Gel saklanacak bir yer bulalım\nİkimiz bir, sen benim sırdaşım ol",
+        heart: "🫂 💗"
+      },
+      {
+        lyrics: "Dilerim ki asla caymazsın benim olmaktan\nDursun zaman\nKalsın yerim derinlerinde saklanan",
+        heart: "⏳ 💖"
+      },
+      {
+        lyrics: "Uyu aşkım koynumda kaygısız, mışıl mışıl.\nBana emanet gül yüzünde gülümseyen huzur.",
+        heart: "🌙 💤"
+      }
+    ];
+
+    let songIndex = 0;
+
+    function showSong() {
+      document.getElementById("songLyrics").textContent =
+        songs[songIndex].lyrics;
+
+      document.getElementById("songLabel").textContent =
+        `Sana özel · ${songIndex + 1}. söz`;
+
+      document.getElementById("songHeart").textContent =
+        songs[songIndex].heart;
+
+      document.getElementById("songCount").textContent =
+        `${songIndex + 1} / ${songs.length}`;
+    }
+
+    function nextSong() {
+      songIndex = (songIndex + 1) % songs.length;
+      showSong();
+      animateCard(document.getElementById("songLyrics"));
+      makeHeart();
+    }
+
+    // Mesaj kutularını açıp kapat
+    function toggleMessage(id, button, openText, closeText) {
+      const box = document.getElementById(id);
+      const willOpen = !box.classList.contains("show");
+
+      box.classList.toggle("show", willOpen);
+      button.textContent = willOpen ? closeText : openText;
+
+      if (willOpen) {
+        makeHeart();
+      }
+    }
+
+    // Gülümseme mesajları
+    const smiles = [
+      "Şu an dünyanın bir yerinde senin gülüşünü çok seven biri var. Onun için gülümsemeye devam et. 💗",
+
+      "Bu mesajın sana ulaşması için evrene minicik bir kalp gönderdim. 💌",
+
+      "Gülümseme kontrolü! Birazcık bile gülümsediysen görev tamam. ✨",
+
+      "Sana sanal bir sarılma ve yanında kocaman bir kalp bırakıyorum. 🫂💗",
+
+      "Güzelim, umarım şu an yüzünde tatlı bir gülümseme vardır."
+    ];
+
+    let lastSmile = -1;
+
+    function newSmile() {
+      const box = document.getElementById("smileMessage");
+      let index;
+
+      do {
+        index = Math.floor(Math.random() * smiles.length);
+      } while (index === lastSmile && smiles.length > 1);
+
+      lastSmile = index;
+      box.textContent = smiles[index];
+      box.classList.add("show");
+      makeHeart();
+    }
+
+    // Küçük kalp efekti
+    function makeHeart() {
+      const heart = document.createElement("div");
+      heart.className = "floating-hearts";
+
+      heart.textContent = ["💗", "💕", "💖", "✨", "🌸"][
+        Math.floor(Math.random() * 5)
+      ];
+
+      heart.style.left = `${10 + Math.random() * 80}%`;
+      heart.style.fontSize = `${16 + Math.random() * 18}px`;
+
+      document.body.appendChild(heart);
+      heart.addEventListener("animationend", () => heart.remove());
+    }
+
+    // Kart değişim animasyonu
+    function animateCard(element) {
+      if (typeof element.animate !== "function") return;
+
+      element.animate(
+        [
+          { opacity: 0.3, transform: "translateY(5px)" },
+          { opacity: 1, transform: "translateY(0)" }
+        ],
+        {
+          duration: 300,
+          easing: "ease-out"
+        }
+      );
+    }
+
+    // İlk notu ve ilk şarkıyı göster
+    showNote();
+    showSong();
+  </script>
+</body>
+</html>
