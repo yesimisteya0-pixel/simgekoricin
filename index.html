@@ -365,7 +365,7 @@
       <div class="note-card" aria-live="polite">
         <div class="note-emoji" id="noteEmoji">💗</div>
         <p class="note-text" id="noteText"></p>
-        <div class="note-count" id="noteCount">1 / 13</div>
+        <div class="note-count" id="noteCount">1 / 21</div>
       </div>
 
       <div class="button-center">
@@ -388,7 +388,7 @@
         <div class="song-label" id="songLabel">Sana özel · 1. söz</div>
         <p class="song-lyrics" id="songLyrics"></p>
         <div class="song-heart" id="songHeart">🎶 💗</div>
-        <div class="note-count" id="songCount">1 / 11</div>
+        <div class="note-count" id="songCount">1 / 23</div>
       </div>
 
       <div class="button-center">
@@ -407,7 +407,8 @@
       <div class="section-number">04 · KÜÇÜK BİR GÜLÜMSEME</div>
       <h2>Gülümseme molası 😊</h2>
       <p class="description">
-        Şu an dünyanın bir yerinde senin gülüşünü çok seven biri var onun için gülümsemeye devam et.
+        Şu an dünyanın bir yerinde senin gülüşünü çok seven biri var.
+        Onun için gülümsemeye devam et.
       </p>
 
       <button class="main-button" onclick="newSmile()">
@@ -417,7 +418,7 @@
       <div class="message-box" id="smileMessage" aria-live="polite"></div>
     </section>
 
-    <!-- 05: Son mektup -->
+    <!-- 05: Son mektup ve yeni not -->
     <section class="section">
       <div class="section-number">05 · SON BİR NOT</div>
       <h2>Sana söylemek istediğim bir şey var 💌</h2>
@@ -425,11 +426,14 @@
         Bu sayfanın sonunda da aklımda yine sen varsın.
       </p>
 
-      <button class="main-button"
-        onclick="toggleMessage('letterMessage', this, 'Mektubunu aç 💌', 'Mektubu tekrar oku 💌')">
+      <button
+        class="main-button"
+        id="letterToggleButton"
+        onclick="toggleLetterNote()">
         Mektubunu aç 💌
       </button>
 
+      <!-- İlk mektup -->
       <div class="message-box" id="letterMessage">Sevgilim, 💗
 
 Burayı senin için, kendini kötü hissettiğinde ya da içinde birikenleri anlatamadığında açıp okuyabilmen için hazırladım. Bazen insanın içinde anlatmak istediği çok şey olur ama kelimeler yetmez. İşte o zamanlarda bu küçük köşenin sana yalnız olmadığını hatırlatmasını istiyorum.
@@ -445,6 +449,11 @@ Ne zaman kendini yalnız ya da anlaşılmamış hissedersen bu notu açıp oku. 
 
 İyi ki varsın, güzelim.
 Ben her zaman yanındayım. 🌙💗</div>
+
+      <!-- İkinci, yeni eklenen not -->
+      <div class="message-box" id="promiseMessage" aria-live="polite">Hayattaki en büyük şansım sana rastlamaktı. Senin tarafından sevilmek, senin tarafından düşünülmek ve senden değer görmek, tarif edilemez bir duygu. Bana yaşattığın her duygu için teşekkür ederim, sevgilim. 💗
+
+Ve son olarak, sana sözüm olsun: Kendini herkesten uzak ve yalnız hissettiğin o anlarda, yanında olduğumu hissedeceğin kadar yakınında olacağım. 🌙🫂</div>
     </section>
 
     <footer class="footer">
@@ -518,39 +527,37 @@ Ben her zaman yanındayım. 🌙💗</div>
     window.addEventListener("resize", resizeStars);
     resizeStars();
 
-    // 02: Kalpten gelen 13 not
+    // 02: Kalpten gelen 21 not
     const notes = [
       "Yıldızlar kadar öpücük, bir tanem. 💋✨",
-
       "Herkese yetişmeye çalışırken kendini unutursan, gel bana. Biraz da ben seni düşüneyim.",
-
       "Sen benim en güzel iyi ki'msin. 💗",
-
       "Yükünü senin yerine taşıyamam belki ama yorulduğunda seni yalnız bırakmam.",
-
       "Seni seviyorum. Deli gibi değil, gayet aklı başında olarak seviyorum.",
-
       "Sevgilim, herkes senden güçlü olmanı bekleyebilir ama benim yanımda güçlü olmak zorunda değilsin. Yorulabilirsin, kırılabilirsin, susabilirsin. Ben seni en çok kendin olabildiğin hâlinle sevmek istiyorum.",
-
       "Gülüşün var ya… İnsanın içindeki bütün bulutları dağıtıyor.",
-
       "Sen tek başına değilsin, ben buradayım. 💞",
-
       "Yalnız seni, yalnız senin gözlerini. 🌙",
-
       "Bazen tek istediğim, senin yanında oturup hiçbir şey söylemeden durmak.",
-
       "Her hâlin ayrı güzel ve ben her hâline aşığım.",
-
       "Sen anlatırken seni dinlemeyi seviyorum. 💌",
-
-      "Senin varlığın bile dünyayı biraz daha güzel hissettiriyor."
+      "Senin varlığın bile dünyayı biraz daha güzel hissettiriyor.",
+      "Çünkü sevilmeye değer ne varsa sende toplanmış gibi. 💗",
+      "Her şeyin en iyisini istemiyorum, seninle en kötüsüne de varım. 🫂",
+      "Bir eylül akşamı benim oldun; yıldızlar gökyüzüne, sen yanıma yakıştın sevgilim. 🌙✨",
+      "Kalbimi süsleyen en güzel his sensin. 💖",
+      "Işığı bulamadığın zaman seninle karanlıkta oturacağıma söz veriyorum. 🌙",
+      "Yapayalnız hissettiğinde benim yanında olduğumu bil, her zerremde seni taşıdığımı ve ne olursa olsun seninle olacağımı bil. 💞",
+      "Hayat ne kadar gürültülü olursa olsun umarım benim sevgim sana her zaman huzur verici bir sesle duyulur. 🕊️",
+      "Bütün yollarım sana çıksın; kaybolacaksam da sadece sende kaybolayım. 💗"
     ];
 
     const noteEmojis = [
       "💋", "🌷", "💗", "🫂", "💞",
       "💌", "☀️", "🧸", "🌙", "✨",
-      "💕", "🌸", "💖"
+      "💕", "🌸", "💖", "💗", "🫂",
+      "🌌", "💖", "🌙", "💞", "🕊️",
+      "💘"
     ];
 
     let noteIndex = 0;
@@ -573,7 +580,7 @@ Ben her zaman yanındayım. 🌙💗</div>
       makeHeart();
     }
 
-    // 03: Sana özel şarkı sözleri
+    // 03: Sana özel şarkı sözleri — 23 söz
     const songs = [
       {
         lyrics: "Senin gözünden\nYeşil mi bahçem?",
@@ -618,6 +625,54 @@ Ben her zaman yanındayım. 🌙💗</div>
       {
         lyrics: "Uyu aşkım koynumda kaygısız, mışıl mışıl.\nBana emanet gül yüzünde gülümseyen huzur.",
         heart: "🌙 💤"
+      },
+      {
+        lyrics: "Sen kapımı çal ansızın, gir içeri\nHer zaman başımın üstünde senin yerin\nDilim tutulur sözcükler uçarsa aklımdan\nBenim güzel misafirim sen hep hoşgeldin",
+        heart: "🏡 💗"
+      },
+      {
+        lyrics: "Aşk seni yazıyormuş\nBilmeden kaderime kazıyormuş",
+        heart: "💌 ✨"
+      },
+      {
+        lyrics: "Bir gülüşünle başladı\nYüreğimde fırtına",
+        heart: "🌹 💕"
+      },
+      {
+        lyrics: "Tatlı gülüş pek yaraşır, gözleri ömre bedel",
+        heart: "😊 💖"
+      },
+      {
+        lyrics: "Ne güz, ne güller ister\nBu kalp bir sende titrer",
+        heart: "🍂 💗"
+      },
+      {
+        lyrics: "Hele bir anla aşkı zamanla\nKışlar bahara döner gibidir\nVar mı dünyada aşkından başka?",
+        heart: "❄️ 🌷"
+      },
+      {
+        lyrics: "Seni ben o zaman, yedi harikadan taç mahalim yaparım",
+        heart: "🏛️ 💖"
+      },
+      {
+        lyrics: "Sen yokken ne gece ne de gündüz\nNe Ay var ne tek bi' yıldız\nHer yer karanlık ve ıssız\nGöremiyorum",
+        heart: "🌙 ✨"
+      },
+      {
+        lyrics: "Öperim seni, sana doyamam ben",
+        heart: "💋 💗"
+      },
+      {
+        lyrics: "Ey gönüllerin efendisi aşk\nYağ üzerime toprak gibi ıslat\nVay kaderimin ta kendisi aşk\nSorgusuz sualsiz emrinde bu zat",
+        heart: "🌹 💌"
+      },
+      {
+        lyrics: "Olur ya, tüm saatler durur da\nSonsuza dek yanımda, kalırsın olur ya",
+        heart: "⏳ 🫂"
+      },
+      {
+        lyrics: "Her şeye rağmen, herkese rağmen\nAşk, inadına aşk",
+        heart: "❤️‍🔥 💞"
       }
     ];
 
@@ -657,16 +712,44 @@ Ben her zaman yanındayım. 🌙💗</div>
       }
     }
 
+    // 05: Mektup ile yeni not arasında geçiş yap
+    function toggleLetterNote() {
+      const letter = document.getElementById("letterMessage");
+      const promise = document.getElementById("promiseMessage");
+      const button = document.getElementById("letterToggleButton");
+
+      const letterIsOpen = letter.classList.contains("show");
+      const promiseIsOpen = promise.classList.contains("show");
+
+      // İkisi de kapalıysa ilk mektubu aç
+      if (!letterIsOpen && !promiseIsOpen) {
+        letter.classList.add("show");
+        button.textContent = "Yeni notumu oku 💗";
+      }
+
+      // Mektup açıksa yeni nota geç
+      else if (letterIsOpen) {
+        letter.classList.remove("show");
+        promise.classList.add("show");
+        button.textContent = "Mektubunu tekrar oku 💌";
+      }
+
+      // Yeni not açıksa ilk mektuba dön
+      else {
+        promise.classList.remove("show");
+        letter.classList.add("show");
+        button.textContent = "Yeni notumu oku 💗";
+      }
+
+      makeHeart();
+    }
+
     // Gülümseme mesajları
     const smiles = [
       "Şu an dünyanın bir yerinde senin gülüşünü çok seven biri var. Onun için gülümsemeye devam et. 💗",
-
       "Bu mesajın sana ulaşması için evrene minicik bir kalp gönderdim. 💌",
-
       "Gülümseme kontrolü! Birazcık bile gülümsediysen görev tamam. ✨",
-
       "Sana sanal bir sarılma ve yanında kocaman bir kalp bırakıyorum. 🫂💗",
-
       "Güzelim, umarım şu an yüzünde tatlı bir gülümseme vardır."
     ];
 
